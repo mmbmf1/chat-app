@@ -15,16 +15,16 @@ app.prepare().then(() => {
   const io = new Server(httpServer);
 
   io.on("connection", (socket) => {
-    // console.log("👀 🔍 ~ io.on ~ socket:", socket)
     console.log('a client is connected')
-
+    
     socket.on('message', (data) => {
+      console.log("👀 🔍 ~ io.on ~ socket.id:", socket.id)
+      console.log("👀 🔍 ~ io.on ~ socket.handshake:", socket.handshake)
+      console.log("👀 🔍 ~ io.on ~ SET socket.rooms:", socket.rooms)
+      socket.join("room1");
       console.log("👀 🔍 ~ socket.on ~ data:", data)
-      io.emit('message', data)
+      console.log("👀 🔍 ~ io.on ~ socket.rooms:", socket.rooms)
     })
-
-    // what do i want to do with the message?
-    // TODO: fix prettier
     
     socket.on('disconnect', () => {
       console.log('a client disconnected')
