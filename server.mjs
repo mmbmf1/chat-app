@@ -21,7 +21,10 @@ app.prepare().then(() => {
     socket.on('message', (data) => {
       console.log("👀 🔍 ~ socket.on ~ data:", data)
       io.emit('message', data)
-    })   
+    })
+
+    // what do i want to do with the message?
+    // TODO: fix prettier
     
     socket.on('disconnect', () => {
       console.log('a client disconnected')
