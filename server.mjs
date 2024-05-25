@@ -15,7 +15,17 @@ app.prepare().then(() => {
   const io = new Server(httpServer);
 
   io.on("connection", (socket) => {
-    console.log("👀 🔍 ~ io.on ~ socket:", socket)
+    // console.log("👀 🔍 ~ io.on ~ socket:", socket)
+    console.log('a client is connected')
+
+    socket.on('message', (data) => {
+      console.log("👀 🔍 ~ socket.on ~ data:", data)
+      io.emit('message', data)
+    })   
+    
+    socket.on('disconnect', () => {
+      console.log('a client disconnected')
+    })
   });
 
   httpServer

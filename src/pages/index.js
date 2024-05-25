@@ -33,6 +33,11 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    console.log('hello world')
+    socket.emit('message','world')
+  }, [])
+
   return (
     <div>
       <p>Status: { isConnected ? "connected" : "disconnected" }</p>
