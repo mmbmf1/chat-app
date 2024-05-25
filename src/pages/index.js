@@ -4,6 +4,7 @@ import { socket } from "../socket";
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     if (socket.connected) {
@@ -33,15 +34,19 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log('hello world')
-    socket.emit('message','world')
-  }, [])
+
+
+  async function submitMessage() {
+    socket.emit('message', message)
+  }
 
   return (
     <div>
       <p>Status: { isConnected ? "connected" : "disconnected" }</p>
       <p>Transport: { transport }</p>
+      <div>
+      <input onChange={(e) => setMessage(e.target.value)} type='text' className="text-black"></input>
+      <button className="border border-white" onClick={()=> submitMessage()}>submit</button></div>
     </div>
   );
 }
