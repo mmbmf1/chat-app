@@ -12,6 +12,7 @@ export default function Home() {
     }
 
     function onConnect() {
+      console.log('client socket.id', socket.id)
       setIsConnected(true);
       setTransport(socket.io.engine.transport.name);
 
