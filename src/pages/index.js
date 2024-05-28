@@ -39,6 +39,9 @@ export default function Home() {
 
   async function submitMessage() {
     socket.emit('message', message)
+    socket.on('return:message', (arg1) => {
+      console.log('arg1', arg1)
+    })
   }
 
   return (

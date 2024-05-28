@@ -16,8 +16,10 @@ app.prepare().then(() => {
 
   io.on("connection", (socket) => {
     console.log('a client is connected')
+
     
     socket.on('message', (data) => {
+      socket.emit('return:message', 'this is the return message')
       console.log("👀 🔍 ~ io.on ~ socket.id:", socket.id)
       console.log("👀 🔍 ~ io.on ~ socket.handshake:", socket.handshake)
       console.log("👀 🔍 ~ io.on ~ SET socket.rooms:", socket.rooms)
