@@ -4,7 +4,8 @@ import { socket } from '../socket'
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false)
   const [transport, setTransport] = useState('N/A')
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     if (socket.connected) {
@@ -12,7 +13,6 @@ export default function Home() {
     }
 
     function onConnect() {
-      console.log('client socket.id', socket.id)
       setIsConnected(true)
       setTransport(socket.io.engine.transport.name)
 
@@ -26,20 +26,24 @@ export default function Home() {
       setTransport('N/A')
     }
 
+    function onReturnMessage(msg) {
+      setMessages((prev) => [...prev, msg])
+    }
+
     socket.on('connect', onConnect)
+    socket.on('return:message', onReturnMessage)
     socket.on('disconnect', onDisconnect)
 
     return () => {
       socket.off('connect', onConnect)
       socket.off('disconnect', onDisconnect)
+      socket.off('return:message', onReturnMessage)
     }
   }, [])
 
   async function submitMessage() {
     socket.emit('message', message)
-    socket.on('return:message', (arg1) => {
-      console.log('arg1', arg1)
-    })
+    setMessage('')
   }
 
   return (
@@ -50,12 +54,20 @@ export default function Home() {
         <input
           onChange={(e) => setMessage(e.target.value)}
           type="text"
+          value={message}
           className="text-black"
         ></input>
         <button className="border border-white" onClick={() => submitMessage()}>
           submit
         </button>
       </div>
+      <ul id="messages">
+        {messages.map((msg, index) => (
+          <li key={index} className="text-white">
+            {msg}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

@@ -17,14 +17,8 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log('a client is connected')
 
-    socket.on('message', (data) => {
-      socket.emit('return:message', 'this is the return message')
-      console.log('👀 🔍 ~ io.on ~ socket.id:', socket.id)
-      console.log('👀 🔍 ~ io.on ~ socket.handshake:', socket.handshake)
-      console.log('👀 🔍 ~ io.on ~ SET socket.rooms:', socket.rooms)
-      socket.join('room1')
-      console.log('👀 🔍 ~ socket.on ~ data:', data)
-      console.log('👀 🔍 ~ io.on ~ socket.rooms:', socket.rooms)
+    socket.on('message', (return_message) => {
+      socket.emit('return:message', return_message)
     })
 
     socket.on('disconnect', () => {
