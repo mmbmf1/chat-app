@@ -18,7 +18,7 @@ app.prepare().then(() => {
     console.log('a client is connected')
 
     socket.on('message', (return_message) => {
-      socket.emit('return:message', return_message)
+      io.emit('return:message', return_message)
     })
 
     socket.on('disconnect', () => {
