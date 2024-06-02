@@ -27,15 +27,11 @@ Make sure you have the following installed on your machine:
    ```sh
    yarn install
    ```
-4. Start the Next.js development server for the client:
+4. Start the Next.js development application:
    ```sh
    yarn dev
    ```
-5. Open another terminal and start the server:
-   ```sh
-   yarn server
-   ```
-6. Open your browser and go to `http://localhost:3000` to start using the chat app.
+5. Open your browser and go to `http://localhost:3000` to start using the chat app.
 
 ## Server Configuration
 
